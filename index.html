@@ -470,6 +470,27 @@
     margin-top: 4px;
   }
 
+  .transfer-note {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 500px;
+    margin: 40px auto 0;
+    background: var(--white);
+    border: 1px solid var(--gold-light);
+    padding: 20px 28px;
+    text-align: center;
+    justify-content: center;
+  }
+  .transfer-icon { font-size: 28px; flex-shrink: 0; }
+  .transfer-note p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--brown-light);
+  }
+
   /* Mobile timeline */
   @media (max-width: 560px) {
     .timeline-list::before { left: 16px; transform: none; }
@@ -944,7 +965,7 @@
   <div class="location-card reveal reveal-delay-2">
     <div class="location-venue" id="venue-name">Сады у Юлии</div>
     <p class="location-address" id="venue-address">
-      Коптев Овраг, 30<br>
+      поселок Коптев Овраг, 30<br>
       Вход со стороны Волги
     </p>
     <a class="btn-map" href="https://yandex.ru/maps" target="_blank" id="map-link">
@@ -1004,6 +1025,10 @@
         <p class="timeline-desc" id="t5-desc">Завершение вечера<br>Трансфер</p>
       </div>
     </div>
+  </div>
+
+  <div class="transfer-note reveal reveal-delay-3">
+    <p>Дополнительно сообщим время и точку сбора трансфера,<br>который доставит вас до площадки</p>
   </div>
 </section>
 
@@ -1221,7 +1246,7 @@ const CONFIG = {
   dateDay: "23",
   dateMonthYear: "июля 2026",
   venueName: "Сады у Юлии",
-  venueAddress: "Коптев Овраг, 30\nВход со стороны Волги",
+  venueAddress: "поселок Коптев Овраг, 30\nВход со стороны Волги",
   mapUrl: "https://yandex.ru/maps/?pt=50.19645,53.33628&z=16&l=map",
   rsvpDeadline: "16 июня 2026",
   // ✏️ Вставьте URL вашего Google Apps Script:
@@ -1377,6 +1402,7 @@ function initForm() {
       alcohol,
       wishes:      document.getElementById("f-wishes").value,
       guest_url:   getGuestName(),
+      g:           new URLSearchParams(window.location.search).get("g") || "",
       timestamp:   new Date().toLocaleString("ru-RU")
     };
 
