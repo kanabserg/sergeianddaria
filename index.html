@@ -734,6 +734,13 @@
     display: none;
     text-align: center;
     padding: 40px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .form-success.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
   .form-success-icon { font-size: 48px; margin-bottom: 16px; }
   .form-success h3 {
@@ -1418,9 +1425,19 @@ function initForm() {
       console.warn("Fetch error (возможно, всё ок с no-cors):", err);
     }
 
-    // Показываем успех
-    form.style.display = "none";
-    document.getElementById("form-success").style.display = "block";
+    // Показываем успех плавно
+    form.style.transition = "opacity 0.5s ease";
+    form.style.opacity = "0";
+    setTimeout(() => {
+      form.style.display = "none";
+      const successEl = document.getElementById("form-success");
+      successEl.style.display = "block";
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          successEl.classList.add("visible");
+        });
+      });
+    }, 500);
   });
 }
 
