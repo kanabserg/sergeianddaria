@@ -186,8 +186,8 @@
   }
   .hero-cupid {
     position: absolute;
-    top: clamp(45px, 9vh, 110px);
-    left: clamp(10px, 4vw, 60px);
+    top: clamp(20px, 5vh, 70px);
+    left: clamp(0px, 1vw, 20px);
     width: clamp(200px, 28vw, 340px);
     color: var(--rose);
     opacity: 0.85;
@@ -200,8 +200,8 @@
 
   .hero-cupid2 {
     position: absolute;
-    bottom: clamp(20px, 6vh, 80px);
-    right: clamp(10px, 4vw, 80px);
+    bottom: clamp(0px, 3vh, 40px);
+    right: clamp(0px, 1vw, 20px);
     width: clamp(200px, 28vw, 340px);
     color: var(--rose);
     opacity: 0.85;
