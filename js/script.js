@@ -1,5 +1,16 @@
 // ===== РЕАЛЬНАЯ ВЫСОТА VIEWPORT (фикс для мобильных браузеров) =====
-document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
+if (window.Telegram && window.Telegram.WebApp) {
+  const tg = window.Telegram.WebApp;
+  tg.expand();
+  function applyTgVh() {
+    const h = tg.viewportStableHeight || tg.viewportHeight || window.innerHeight;
+    document.documentElement.style.setProperty('--real-vh', h + 'px');
+  }
+  applyTgVh();
+  tg.onEvent('viewportChanged', applyTgVh);
+} else {
+  document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
+}
 
 // ===== КОНФИГУРАЦИЯ =====
 // ✏️ РЕДАКТИРУЙТЕ ЭТИ ЗНАЧЕНИЯ ПОД СВОЮ СВАДЬБУ
