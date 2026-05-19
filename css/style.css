@@ -125,7 +125,7 @@
      HERO
   =========================== */
   #hero {
-    min-height: 100%;
+    min-height: 100dvh;
     padding-bottom: max(60px, calc(60px + env(safe-area-inset-bottom, 0px)));
     background: linear-gradient(170deg, #F8F4EC 0%, #EDE8DC 50%, #E4DDD0 100%);
     display: flex;
