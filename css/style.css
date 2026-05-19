@@ -27,6 +27,9 @@
     background: #F5F0E8;
     color: #3D3530;
     overflow-x: hidden;
+    min-height: 100vh;
+    min-height: 100dvh;
+    min-height: var(--real-vh, 100dvh);
   }
 
   /* ===== CSS VARIABLES ===== */
