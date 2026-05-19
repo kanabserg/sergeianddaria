@@ -1,9 +1,5 @@
 // ===== РЕАЛЬНАЯ ВЫСОТА VIEWPORT (фикс для мобильных браузеров) =====
-function setRealVh() {
-  document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
-}
-setRealVh();
-window.addEventListener('resize', setRealVh);
+document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
 
 // ===== КОНФИГУРАЦИЯ =====
 // ✏️ РЕДАКТИРУЙТЕ ЭТИ ЗНАЧЕНИЯ ПОД СВОЮ СВАДЬБУ

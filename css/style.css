@@ -27,9 +27,6 @@
     background: #F5F0E8;
     color: #3D3530;
     overflow-x: hidden;
-    min-height: 100vh;
-    min-height: 100dvh;
-    min-height: var(--real-vh, 100dvh);
   }
 
   /* ===== CSS VARIABLES ===== */
@@ -127,7 +124,8 @@
      HERO
   =========================== */
   #hero {
-    min-height: 110vh;
+    min-height: 100svh;
+    min-height: var(--real-vh, 100svh);
     background: linear-gradient(170deg, #F8F4EC 0%, #EDE8DC 50%, #E4DDD0 100%);
     display: flex;
     flex-direction: column;
@@ -1055,9 +1053,11 @@
 
 #envelope-overlay {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     width: 100%;
-    height: 110vh;
+    height: 100%;
+    height: 100dvh;
+    height: var(--real-vh, 100dvh);
     z-index: 9999;
     background: #F0EBE0;
     overflow: hidden;
