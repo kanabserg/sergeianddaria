@@ -222,15 +222,78 @@ document.addEventListener('DOMContentLoaded', function() {
     const overlay     = document.getElementById('envelope-overlay');
     const centerGroup = document.getElementById('env-center-group');
 
+    const audio = new Audio('audio/Sleeping At Last Turning Page.mp3');
+    audio.loop = true;
+
+    let envelopeOpened = false;
     function openEnvelope() {
+      if (envelopeOpened) return;
+      envelopeOpened = true;
+      audio.play().catch(() => {});
       overlay.classList.add('opening');
       setTimeout(() => {
         overlay.classList.add('gone');
         document.body.classList.add('envelope-open');
-        setTimeout(() => overlay.remove(), 500);
+        setTimeout(() => {
+          overlay.remove();
+          initArrowObserver();
+          setTimeout(scheduleArrows, 600);
+        }, 500);
       }, 2100);
     }
 
     centerGroup.addEventListener('click', openEnvelope);
     overlay.addEventListener('click', openEnvelope); // tap anywhere works too
   });
+
+// ===== CUPID ARROWS =====
+let heroInView = true;
+let arrowTimer = null;
+
+function createCupidArrow() {
+  const container = document.getElementById('arrowContainer');
+  const hero      = document.getElementById('hero');
+  if (!container || !hero) return;
+
+  const W      = window.innerWidth;
+  const heroTop = hero.offsetTop;
+  const heroH   = hero.offsetHeight;
+
+  const img = document.createElement('img');
+  img.src = 'img/cupid-arrow.svg';
+  img.classList.add('cupid-arrow');
+  img.style.width = '90px';
+  img.style.height = 'auto';
+
+  const isLTR  = Math.random() > 0.5;
+  const startY = heroTop + 0.15 * heroH + Math.random() * 0.7 * heroH;
+  const endY   = heroTop + 0.15 * heroH + Math.random() * 0.7 * heroH;
+  const peakY  = Math.max(heroTop, startY - (0.2 + Math.random() * 0.25) * heroH);
+
+  const path = isLTR
+    ? `M -90 ${startY} Q ${W/2} ${peakY} ${W+90} ${endY}`
+    : `M ${W+90} ${startY} Q ${W/2} ${peakY} -90 ${endY}`;
+
+  const duration = 1 + Math.random() * 0.75;
+
+  img.style.cssText += `;offset-path:path('${path}');offset-rotate:auto;animation:arrowFlight ${duration}s linear forwards;`;
+  container.appendChild(img);
+  setTimeout(() => img.remove(), (duration + 0.3) * 1000);
+}
+
+function scheduleArrows() {
+  arrowTimer = null;
+  if (!heroInView) return;
+  createCupidArrow();
+  arrowTimer = setTimeout(scheduleArrows, 3000);
+}
+
+function initArrowObserver() {
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+  const observer = new IntersectionObserver((entries) => {
+    heroInView = entries[0].isIntersecting;
+    if (heroInView && !arrowTimer) scheduleArrows();
+  }, { threshold: 0 });
+  observer.observe(hero);
+}

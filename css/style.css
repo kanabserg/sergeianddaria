@@ -311,6 +311,7 @@
 
   #date-card {
     background: linear-gradient(135deg, #3D3F24 0%, #84864C 100%);
+    margin-top: -2px;
     padding: calc(var(--section-pad) * 0.8) 24px calc(var(--section-pad) * 0.8);
     text-align: center;
     position: relative;
@@ -734,6 +735,7 @@
   }
   .wishes-heart-top,
   .wishes-heart-bottom {
+    margin-top: -1px;
     display: block;
     width: 100%;
     margin: 0;
@@ -744,11 +746,13 @@
     mask-repeat: no-repeat;
   }
   .wishes-heart-top {
+    margin-bottom: -1px;
     -webkit-mask-image: url('../img/heart-top.png');
     mask-image: url('../img/heart-top.png');
     aspect-ratio: 960 / 162;
   }
   .wishes-heart-bottom {
+    margin-top: -1px;
     -webkit-mask-image: url('../img/heart-bottom.png');
     mask-image: url('../img/heart-bottom.png');
     aspect-ratio: 1280 / 572;
@@ -778,9 +782,9 @@
     text-align: center;
   }
   .wish-label {
-    font-family: 'Caveat', cursive;
-    font-size: clamp(24px, 4vw, 36px);
-    font-weight: 700;
+    font-family: 'Betmo', cursive;
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: normal;
     color: var(--rose);
     line-height: 1;
     display: block;
@@ -1229,3 +1233,29 @@
   }
   body:not(.envelope-open) { overflow: hidden; }
   body.envelope-open { overflow: auto; }
+/* ===== CUPID ARROWS ===== */
+#arrowContainer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 50;
+  overflow: visible;
+}
+
+body:not(.envelope-open) #arrowContainer {
+  display: none;
+}
+
+.cupid-arrow {
+  position: absolute;
+  pointer-events: none;
+  offset-rotate: auto;
+}
+
+@keyframes arrowFlight {
+  0%   { offset-distance: 0%; opacity: 0; }
+  8%   { opacity: 0.85; }
+  92%  { opacity: 0.85; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
