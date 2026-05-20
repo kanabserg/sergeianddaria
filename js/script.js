@@ -13,6 +13,7 @@ const CONFIG = {
   venueAddress: "поселок Коптев Овраг, 30\nВход со стороны Волги",
   mapUrl: "https://yandex.ru/maps/?pt=50.19645,53.33628&z=16&l=map",
   rsvpDeadline: "16 июня 2026",
+  rsvpBlurDate: new Date("2026-06-17"),
   // ✏️ Вставьте URL вашего Google Apps Script:
   googleScriptUrl: "https://script.google.com/macros/s/AKfycbwkIPMohtIerS8YFguzomf0CuZ8_y_QKPyZfRO_W8pApc5SZTTjMqXrLTgbmovObmmQEg/exec",
   // ✏️ Секретный ключ — такой же должен быть в Apps Script:
@@ -197,6 +198,15 @@ function initForm() {
   });
 }
 
+// ===== RSVP DEADLINE =====
+function checkRsvpDeadline() {
+  if (new Date() < CONFIG.rsvpBlurDate) return;
+  const wrapper = document.getElementById('form-wrapper');
+  const overlay = document.getElementById('rsvp-closed-overlay');
+  if (wrapper) wrapper.classList.add('rsvp-closed');
+  if (overlay) overlay.classList.add('visible');
+}
+
 // ===== HERO ENTRANCE =====
 function heroEntrance() {
   // Hero уже анимируется через CSS, делаем visible сразу
@@ -216,6 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initForm();
   updateCountdown();
   setInterval(updateCountdown, 1000);
+  checkRsvpDeadline();
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -226,6 +237,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const audio = new Audio('audio/Sleeping At Last Turning Page.mp3');
     audio.loop = true;
 
+    const muteBtn = document.getElementById('mute-btn');
+    muteBtn.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      document.getElementById('mute-icon-on').style.display  = audio.muted ? 'none'  : '';
+      document.getElementById('mute-icon-off').style.display = audio.muted ? ''      : 'none';
+    });
     let envelopeOpened = false;
     function openEnvelope() {
       if (envelopeOpened) return;
@@ -295,8 +312,8 @@ function initArrowObserver() {
   let prevVisible = true;
   const observer = new IntersectionObserver((entries) => {
     const visible = entries[0].isIntersecting;
-    if (visible && !prevVisible && !arrowTimer) scheduleArrows();
     heroInView = visible;
+    if (visible && !prevVisible && !arrowTimer) scheduleArrows();
     prevVisible = visible;
   }, { threshold: 0 });
   observer.observe(hero);

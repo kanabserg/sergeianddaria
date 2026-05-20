@@ -267,7 +267,7 @@
     Заполните небольшую анкету до <strong id="rsvp-deadline" style="font-weight:600;font-size:19px;color:var(--rose-dark);">16 июня 2026</strong>,<br>это поможет нам в организации праздника.
   </p>
 
-  <div class="form-wrapper reveal reveal-delay-2">
+  <div class="form-wrapper reveal reveal-delay-2" id="form-wrapper">
     <form id="rsvp-form">
 
       <div class="form-row">
@@ -327,6 +327,10 @@
       </button>
     </form>
 
+    <div id="rsvp-closed-overlay">
+      <span id="rsvp-closed-text">Время Вышло!</span>
+    </div>
+
     <div class="form-success" id="form-success">
       <div class="form-success-icon">🌸</div>
       <h3>Спасибо!</h3>
@@ -350,7 +354,7 @@
     <div class="contact-card">
       <div class="contact-avatar"><img src="img/agency_anastasia.jpeg" alt="Анастасия"></div>
       <p class="contact-name" id="c1-name">Анастасия</p>
-      <p class="contact-role" id="c1-role">Организатор свадьбы</p>
+      <p class="contact-role" id="c1-role">Организатор</p>
       <a class="contact-phone" href="tel:+79277735677" id="c1-phone">+7 (927) 773-56-77</a>
     </div>
     <div class="contact-card">
@@ -367,9 +371,9 @@
 =========================== -->
 <footer>
   <p class="footer-names">
-    <span id="footer-bride">София</span>
+    <span id="footer-bride">Дарья</span>
     <span class="footer-heart">♥</span>
-    <span id="footer-groom">Андрей</span>
+    <span id="footer-groom">Сергей</span>
   </p>
   <p class="footer-date" id="footer-date">23 · 07 · 26</p>
 </footer>
@@ -408,6 +412,20 @@
   <img id="env-left"   class="env-piece" src="img/env-left.png"   alt="">
   <img id="env-right"  class="env-piece" src="img/env-right.png"  alt="">
 </div>
+
+<!-- ===== MUTE BUTTON ===== -->
+<button id="mute-btn" aria-label="Выключить звук">
+  <svg id="mute-icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+  </svg>
+  <svg id="mute-icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <line x1="23" y1="9" x2="17" y2="15"/>
+    <line x1="17" y1="9" x2="23" y2="15"/>
+  </svg>
+</button>
 
 <!-- ===== CUPID ARROWS ===== -->
 <div id="arrowContainer"></div>
