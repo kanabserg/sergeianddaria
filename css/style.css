@@ -1327,3 +1327,47 @@ body.envelope-open #mute-btn:hover {
   height: 22px;
   display: block;
 }
+
+/* ===== QR CODE OVERLAY ===== */
+#qr-box {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  background: #3D3F24;
+}
+
+@media (min-width: 768px) {
+  #qr-box { display: flex; }
+}
+
+body.telegram-browser #qr-box {
+  display: flex;
+}
+
+#qr-message {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 52px);
+  font-weight: 400;
+  color: #F5F0E8;
+  text-align: center;
+  line-height: 0.9;
+  margin: 0;
+}
+
+#qr-canvas img,
+#qr-canvas canvas {
+  display: block;
+  border-radius: 8px;
+}
+
+#qr-heart {
+  width: 44px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}

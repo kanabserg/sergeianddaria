@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Caveat:wght@700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -41,7 +42,7 @@
 
   <div class="hero-scroll" onclick="document.getElementById('intro').scrollIntoView({behavior:'smooth'})">
     <div class="hero-scroll-line"></div>
-    <span>Листать</span>
+    <span data-i18n="scrollLabel">Листать</span>
   </div>
 </section>
 
@@ -56,7 +57,7 @@
     <span class="divider-icon">✦</span>
   </div>
 
-  <p class="intro-text reveal reveal-delay-2">
+  <p class="intro-text reveal reveal-delay-2" id="intro-main-text">
     Скоро состоится очень важное и радостное для нас событие —<br>
     <strong style="font-family:'Betmo',cursive;font-size:1.8em;font-weight:normal;">наша свадьба!</strong><br><br>
     Этот день невозможно представить без самых близких для нас людей,<br>
@@ -82,13 +83,13 @@
 
     <div class="calendar">
       <div class="cal-grid">
-        <div class="cal-dow">пн</div>
-        <div class="cal-dow">вт</div>
-        <div class="cal-dow">ср</div>
-        <div class="cal-dow">чт</div>
-        <div class="cal-dow">пт</div>
-        <div class="cal-dow">сб</div>
-        <div class="cal-dow">вс</div>
+        <div class="cal-dow" data-i18n="calMon">пн</div>
+        <div class="cal-dow" data-i18n="calTue">вт</div>
+        <div class="cal-dow" data-i18n="calWed">ср</div>
+        <div class="cal-dow" data-i18n="calThu">чт</div>
+        <div class="cal-dow" data-i18n="calFri">пт</div>
+        <div class="cal-dow" data-i18n="calSat">сб</div>
+        <div class="cal-dow" data-i18n="calSun">вс</div>
         <div class="cal-day">20</div>
         <div class="cal-day">21</div>
         <div class="cal-day">22</div>
@@ -106,8 +107,8 @@
      LOCATION
 =========================== -->
 <section id="location">
-  <p class="section-subtitle reveal">save the place</p>
-  <h2 class="section-title reveal reveal-delay-1">Место торжества</h2>
+  <p class="section-subtitle reveal" data-i18n="locationSubtitle">save the place</p>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="locationTitle">Место торжества</h2>
 
   <div class="garden-banner reveal"><img src="img/garden-banner.svg" alt=""></div>
 
@@ -130,8 +131,8 @@
      TIMELINE
 =========================== -->
 <section id="timeline">
-  <p class="section-subtitle reveal">День торжества</p>
-  <h2 class="section-title reveal reveal-delay-1">Программа дня</h2>
+  <p class="section-subtitle reveal" data-i18n="timelineSubtitle">День торжества</p>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="timelineTitle">Программа дня</h2>
 
     <div class="timeline-list reveal reveal-delay-2">
     <div class="timeline-item">
@@ -177,7 +178,7 @@
   </div>
 
   <div class="transfer-note reveal reveal-delay-3">
-    <p>Дополнительно сообщим время и точку сбора трансфера,<br>который доставит вас до площадки</p>
+    <p id="transfer-note-text">Дополнительно сообщим время и точку сбора трансфера,<br>который доставит вас до площадки</p>
   </div>
 </section>
 
@@ -185,8 +186,8 @@
      COUNTDOWN
 =========================== -->
 <section id="countdown">
-  <p class="section-subtitle reveal">Осталось совсем немного</p>
-  <h2 class="section-title reveal reveal-delay-1">До нашей свадьбы</h2>
+  <p class="section-subtitle reveal" data-i18n="countdownSubtitle">Осталось совсем немного</p>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="countdownTitle">До нашей свадьбы</h2>
 
   <div class="countdown-grid reveal reveal-delay-2">
     <div class="countdown-item">
@@ -215,8 +216,8 @@
      DRESSCODE
 =========================== -->
 <section id="dresscode">
-  <p class="section-subtitle reveal">Стиль вечера</p>
-  <h2 class="section-title reveal reveal-delay-1">Дресс-код — Cocktail</h2>
+  <p class="section-subtitle reveal" data-i18n="dresscodeSubtitle">Стиль вечера</p>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="dresscodeTitle">Дресс-код — Cocktail</h2>
 
   <div class="palette-row reveal reveal-delay-2">
     <img src="img/palette-heart-1.svg" class="palette-heart" alt="">
@@ -237,20 +238,20 @@
 <div class="wishes-heart-wrapper">
 <div class="wishes-heart-top"></div>
 <section id="wishes">
-  <h2 class="section-title reveal reveal-delay-1">Пожелания</h2>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="wishesTitle">Пожелания</h2>
 
   <div class="wishes-grid">
     <div class="wish-card reveal reveal-delay-1">
-      <span class="wish-label wish-label-left">про подарки</span>
-      <p class="wish-text">Если Вы желаете поздравить нас по случаю праздника, мы будем признательны лёгким подаркам в конвертах, чтобы освободить ваши руки для объятий</p>
+      <span class="wish-label wish-label-left" data-i18n="wishLabel1">про подарки</span>
+      <p class="wish-text" data-i18n="wishText1">Если Вы желаете поздравить нас по случаю праздника, мы будем признательны лёгким подаркам в конвертах, чтобы освободить ваши руки для объятий</p>
     </div>
     <div class="wish-card reveal reveal-delay-2">
-      <span class="wish-label wish-label-right">про Ваш комфорт</span>
-      <p class="wish-text">Наш праздник пройдет на свежем воздухе, поэтому рекомендуем захватить с собой удобную обувь для танцев на траве и что-то теплое для вечерней программы, чтобы наслаждаться каждой минутой праздника без забот</p>
+      <span class="wish-label wish-label-right" data-i18n="wishLabel2">про Ваш комфорт</span>
+      <p class="wish-text" data-i18n="wishText2">Наш праздник пройдет на свежем воздухе, поэтому рекомендуем захватить с собой удобную обувь для танцев на траве и что-то теплое для вечерней программы, чтобы наслаждаться каждой минутой праздника без забот</p>
     </div>
     <div class="wish-card reveal reveal-delay-1">
-      <span class="wish-label wish-label-left">про цветы</span>
-      <p class="wish-text">Пожалуйста, не дарите нам цветы, так как у нас не будет возможности в полной мере насладиться их красотой и ароматом</p>
+      <span class="wish-label wish-label-left" data-i18n="wishLabel3">про цветы</span>
+      <p class="wish-text" data-i18n="wishText3">Пожалуйста, не дарите нам цветы, так как у нас не будет возможности в полной мере насладиться их красотой и ароматом</p>
     </div>
   </div>
 </section>
@@ -261,68 +262,68 @@
      RSVP FORM
 =========================== -->
 <section id="rsvp">
-  <p class="section-subtitle reveal">Анкета гостя</p>
-  <h2 class="section-title reveal reveal-delay-1">Подтвердите участие</h2>
-  <p class="intro-text reveal reveal-delay-2" style="font-size:16px;margin:0 auto 40px;max-width:520px;">
-    Заполните небольшую анкету до <strong id="rsvp-deadline" style="font-weight:600;font-size:19px;color:var(--rose-dark);">16 июня 2026</strong>,<br>это поможет нам в организации праздника.
+  <p class="section-subtitle reveal" data-i18n="rsvpSubtitle">Анкета гостя</p>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="rsvpTitle">Подтвердите участие</h2>
+  <p class="intro-text reveal reveal-delay-2" id="rsvp-intro-text" style="font-size:16px;margin:0 auto 40px;max-width:520px;">
+    Заполните небольшую анкету до <strong style="font-weight:600;font-size:19px;color:var(--rose-dark);">16 июня 2026</strong>,<br>это поможет нам в организации праздника.
   </p>
 
   <div class="form-wrapper reveal reveal-delay-2" id="form-wrapper">
     <form id="rsvp-form">
 
       <div class="form-row">
-        <label class="form-label">Ваше имя и фамилия *</label>
-        <input type="text" class="form-input" id="f-name" placeholder="Иванова Мария" required>
+        <label class="form-label" data-i18n="formNameLabel">Ваше имя и фамилия *</label>
+        <input type="text" class="form-input" id="f-name" placeholder="Иванова Мария" data-i18n-placeholder="formNamePlaceholder" required>
       </div>
 
       <div class="form-row">
-        <label class="form-label">Присутствие на торжестве *</label>
+        <label class="form-label" data-i18n="formAttendanceLabel">Присутствие на торжестве *</label>
         <div class="radio-group">
           <label class="radio-label">
             <input type="radio" name="attendance" value="Приду" required>
             <span class="radio-custom"></span>
-            Я приду
+            <span data-i18n="attendanceSolo">Я приду</span>
           </label>
           <label class="radio-label">
             <input type="radio" name="attendance" value="Придём вдвоём">
             <span class="radio-custom"></span>
-            Мы придём вдвоём
+            <span data-i18n="attendanceCouple">Мы придём вдвоём</span>
           </label>
           <label class="radio-label">
             <input type="radio" name="attendance" value="Придём семьёй">
             <span class="radio-custom"></span>
-            Придём семьёй
+            <span data-i18n="attendanceFamily">Придём семьёй</span>
           </label>
           <label class="radio-label">
             <input type="radio" name="attendance" value="Не смогу прийти">
             <span class="radio-custom"></span>
-            К сожалению, не смогу прийти
+            <span data-i18n="attendanceCant">К сожалению, не смогу прийти</span>
           </label>
         </div>
       </div>
 
       <div class="form-row" id="family-row" style="display:none;">
-        <label class="form-label">Имена тех, кто придёт с вами</label>
-        <input type="text" class="form-input" id="f-family" placeholder="Иванов Пётр, Иванова Анна...">
+        <label class="form-label" data-i18n="formFamilyLabel">Имена тех, кто придёт с вами</label>
+        <input type="text" class="form-input" id="f-family" placeholder="Иванов Пётр, Иванова Анна..." data-i18n-placeholder="formFamilyPlaceholder">
       </div>
 
       <div class="form-row">
-        <label class="form-label">Алкогольные напитки</label>
+        <label class="form-label" data-i18n="formAlcLabel">Алкогольные напитки</label>
         <div class="checkbox-group">
-          <label class="checkbox-label"><input type="checkbox" value="Шампанское"> Шампанское</label>
-          <label class="checkbox-label"><input type="checkbox" value="Белое вино"> Белое вино</label>
-          <label class="checkbox-label"><input type="checkbox" value="Красное вино"> Красное вино</label>
-          <label class="checkbox-label"><input type="checkbox" value="Крепкий алкоголь"> Крепкий алкоголь</label>
-          <label class="checkbox-label"><input type="checkbox" value="Не пью"> Не пью</label>
+          <label class="checkbox-label"><input type="checkbox" value="Шампанское"> <span data-i18n="alc1">Шампанское</span></label>
+          <label class="checkbox-label"><input type="checkbox" value="Белое вино"> <span data-i18n="alc2">Белое вино</span></label>
+          <label class="checkbox-label"><input type="checkbox" value="Красное вино"> <span data-i18n="alc3">Красное вино</span></label>
+          <label class="checkbox-label"><input type="checkbox" value="Крепкий алкоголь"> <span data-i18n="alc4">Крепкий алкоголь</span></label>
+          <label class="checkbox-label"><input type="checkbox" value="Не пью"> <span data-i18n="alc5">Не пью</span></label>
         </div>
       </div>
 
       <div class="form-row">
-        <label class="form-label">Пожелания молодожёнам</label>
-        <textarea class="form-textarea" id="f-wishes" placeholder="Ваши тёплые слова..."></textarea>
+        <label class="form-label" data-i18n="formWishesLabel">Пожелания молодожёнам</label>
+        <textarea class="form-textarea" id="f-wishes" placeholder="Ваши тёплые слова..." data-i18n-placeholder="formWishesPlaceholder"></textarea>
       </div>
 
-      <button type="submit" class="btn-submit" id="submit-btn">
+      <button type="submit" class="btn-submit" id="submit-btn" data-i18n="submitBtn">
         Отправить анкету
       </button>
     </form>
@@ -343,8 +344,8 @@
      CONTACTS
 =========================== -->
 <section id="contacts">
-  <p class="section-subtitle reveal">Связаться с нами</p>
-  <h2 class="section-title reveal reveal-delay-1">Контакты</h2>
+  <p class="section-subtitle reveal" data-i18n="contactsSubtitle">Связаться с нами</p>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="contactsTitle">Контакты</h2>
   <p class="contacts-text reveal reveal-delay-2" id="contacts-text">
     По любым вопросам до свадьбы и в день торжества<br>
     смело обращайтесь к нашим организаторам:
@@ -400,17 +401,24 @@
     <img id="env-bottom" src="img/env-bottom.png" alt="">
     <div id="env-bottom-text">
       <div class="env-address-line">
-        <span class="env-address-label">Для:</span>
+        <span class="env-address-label" data-i18n="envAddrLabelTo">Для:</span>
         <span class="env-address-value" id="env-to">Родных и близких</span>
       </div>
       <div class="env-address-line">
-        <span class="env-address-label">От:</span>
+        <span class="env-address-label" data-i18n="envAddrLabelFrom">От:</span>
         <span class="env-address-value" id="env-from">Дарьи и Сергея</span>
       </div>
     </div>
   </div>
   <img id="env-left"   class="env-piece" src="img/env-left.png"   alt="">
   <img id="env-right"  class="env-piece" src="img/env-right.png"  alt="">
+</div>
+
+<!-- ===== QR CODE OVERLAY ===== -->
+<div id="qr-box">
+  <p id="qr-message">Пожалуйста, откройте<br>приглашение с телефона</p>
+  <div id="qr-canvas"></div>
+  <img id="qr-heart" src="img/heart.svg" alt="">
 </div>
 
 <!-- ===== MUTE BUTTON ===== -->

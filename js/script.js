@@ -1,4 +1,153 @@
 
+// ===== ЯЗЫК =====
+const currentLang = new URLSearchParams(window.location.search).get("lang") === "en" ? "en" : "ru";
+
+// ===== ПЕРЕВОДЫ =====
+const TRANSLATIONS = {
+  ru: {
+    pageTitle: "Приглашение на свадьбу",
+    scrollLabel: "Листать",
+    dateBig: "июль 2026",
+    calMon: "пн", calTue: "вт", calWed: "ср", calThu: "чт", calFri: "пт", calSat: "сб", calSun: "вс",
+    locationSubtitle: "save the place",
+    locationTitle: "Место торжества",
+    mapLink: "Посмотреть на карте",
+    timelineSubtitle: "День торжества",
+    timelineTitle: "Программа дня",
+    t1desc: "Сбор гостей<br>Champagne reception",
+    t2desc: "Торжественная регистрация<br>брака",
+    t3desc: "Начало банкета<br>Поздравления",
+    t4desc: "Торт и сладкий стол<br>Первый танец",
+    t5desc: "Завершение вечера<br>Трансфер",
+    transferNote: "Дополнительно сообщим время и точку сбора трансфера,<br>который доставит вас до площадки",
+    countdownSubtitle: "Осталось совсем немного",
+    countdownTitle: "До нашей свадьбы",
+    cdDays1: "день",    cdDaysFew: "дня",    cdDaysMany: "дней",
+    cdHours1: "час",    cdHoursFew: "часа",  cdHoursMany: "часов",
+    cdMins1: "минута",  cdMinsFew: "минуты", cdMinsMany: "минут",
+    cdSecs1: "секунда", cdSecsFew: "секунды",cdSecsMany: "секунд",
+    dresscodeSubtitle: "Стиль вечера",
+    dresscodeTitle: "Дресс-код — Cocktail",
+    dresscodeText: "Для нас самое главное — ваше присутствие, но мы будем очень признательны, если для своих образов вы выберете цветовую гамму спокойных природных оттенков.",
+    wishesTitle: "Пожелания",
+    wishLabel1: "про подарки",
+    wishText1: "Если Вы желаете поздравить нас по случаю праздника, мы будем признательны лёгким подаркам в конвертах, чтобы освободить ваши руки для объятий",
+    wishLabel2: "про Ваш комфорт",
+    wishText2: "Наш праздник пройдет на свежем воздухе, поэтому рекомендуем захватить с собой удобную обувь для танцев на траве и что-то теплое для вечерней программы, чтобы наслаждаться каждой минутой праздника без забот",
+    wishLabel3: "про цветы",
+    wishText3: "Пожалуйста, не дарите нам цветы, так как у нас не будет возможности в полной мере насладиться их красотой и ароматом",
+    rsvpSubtitle: "Анкета гостя",
+    rsvpTitle: "Подтвердите участие",
+    rsvpIntroText: `Заполните небольшую анкету до <strong style="font-weight:600;font-size:19px;color:var(--rose-dark);">16 июня 2026</strong>,<br>это поможет нам в организации праздника.`,
+    formNameLabel: "Ваше имя и фамилия *",
+    formNamePlaceholder: "Иванова Мария",
+    formAttendanceLabel: "Присутствие на торжестве *",
+    attendanceSolo: "Я приду",
+    attendanceCouple: "Мы придём вдвоём",
+    attendanceFamily: "Придём семьёй",
+    attendanceCant: "К сожалению, не смогу прийти",
+    formFamilyLabel: "Имена тех, кто придёт с вами",
+    formFamilyPlaceholder: "Иванов Пётр, Иванова Анна...",
+    formAlcLabel: "Алкогольные напитки",
+    alc1: "Шампанское", alc2: "Белое вино", alc3: "Красное вино", alc4: "Крепкий алкоголь", alc5: "Не пью",
+    formWishesLabel: "Пожелания молодожёнам",
+    formWishesPlaceholder: "Ваши тёплые слова...",
+    submitBtn: "Отправить анкету",
+    rsvpClosed: "Время Вышло!",
+    successTitle: "Спасибо!",
+    successText: "Ваша анкета отправлена. Мы очень ждём вас на нашем празднике!",
+    contactsSubtitle: "Связаться с нами",
+    contactsTitle: "Контакты",
+    contactsText: "По любым вопросам до свадьбы и в день торжества<br>смело обращайтесь к нашим организаторам:",
+    c1role: "Организатор",
+    c2role: "Координатор",
+    envTopText: "Вам письмо!",
+    envCenterLabel: "Нажми<br>сюда",
+    envAddrLabelTo: "Для:",
+    envAddrLabelFrom: "От:",
+    envTo: "Родных и близких",
+    envFrom: "Дарьи и Сергея",
+    qrMessage: "Пожалуйста, откройте<br>приглашение с телефона",
+    greetingM: "Дорогой", greetingF: "Дорогая", greetingMF: "Дорогие", greetingDefault: "Дорогой(ая)",
+    defaultGuestName: "Дорогой гость",
+    bride: "Дарья", groom: "Сергей",
+    venueName: "Сады у Юлии",
+    venueAddress: "поселок Коптев Овраг, 30\nВход со стороны Волги",
+    introText: `Скоро состоится очень важное и радостное для нас событие —<br><strong style="font-family:'Betmo',cursive;font-size:1.8em;font-weight:normal;">наша свадьба!</strong><br><br>Этот день невозможно представить без самых близких для нас людей,<br>мы бы очень хотели, чтобы вы провели его вместе с нами!`,
+  },
+  en: {
+    pageTitle: "Wedding Invitation",
+    scrollLabel: "Scroll",
+    dateBig: "July 2026",
+    calMon: "Mo", calTue: "Tu", calWed: "We", calThu: "Th", calFri: "Fr", calSat: "Sa", calSun: "Su",
+    locationSubtitle: "save the place",
+    locationTitle: "Venue",
+    mapLink: "View on map",
+    timelineSubtitle: "Wedding Day",
+    timelineTitle: "Day Schedule",
+    t1desc: "Guest arrival<br>Champagne reception",
+    t2desc: "Wedding ceremony",
+    t3desc: "Banquet begins<br>Congratulations",
+    t4desc: "Wedding cake & desserts<br>First dance",
+    t5desc: "End of evening<br>Transfer",
+    transferNote: "We will inform you of the transfer pick-up time and location to take you to the venue",
+    countdownSubtitle: "The wedding",
+    countdownTitle: "is almost here",
+    cdDays1: "day",    cdDaysFew: "days",    cdDaysMany: "days",
+    cdHours1: "hour",  cdHoursFew: "hours",  cdHoursMany: "hours",
+    cdMins1: "minute", cdMinsFew: "minutes", cdMinsMany: "minutes",
+    cdSecs1: "second", cdSecsFew: "seconds", cdSecsMany: "seconds",
+    dresscodeSubtitle: "Dress code",
+    dresscodeTitle: "Dress Code — Cocktail",
+    dresscodeText: "Most importantly, we want you there — but we would be grateful if you chose outfits in soft, natural tones.",
+    wishesTitle: "Our Wishes",
+    wishLabel1: "about gifts",
+    wishText1: "If you wish to congratulate us on the occasion, we would appreciate light gifts in envelopes, so your hands are free for hugs",
+    wishLabel2: "about your comfort",
+    wishText2: "Our celebration will be held outdoors, so we recommend bringing comfortable shoes for dancing on the grass and something warm for the evening programme, so you can enjoy every moment without worry",
+    wishLabel3: "about flowers",
+    wishText3: "Please do not bring us flowers, as we will not have the opportunity to fully enjoy their beauty and fragrance",
+    rsvpSubtitle: "RSVP",
+    rsvpTitle: "Confirm Attendance",
+    rsvpIntroText: `Please fill in a short form by <strong style="font-weight:600;font-size:19px;color:var(--rose-dark);">June 16, 2026</strong>,<br>this will help us with the wedding planning.`,
+    formNameLabel: "Your name *",
+    formNamePlaceholder: "Jane Smith",
+    formAttendanceLabel: "Attendance *",
+    attendanceSolo: "I will attend",
+    attendanceCouple: "We will attend as a couple",
+    attendanceFamily: "We will attend as a family",
+    attendanceCant: "Unfortunately, I cannot attend",
+    formFamilyLabel: "Names of those joining you",
+    formFamilyPlaceholder: "John Smith, Jane Smith...",
+    formAlcLabel: "Alcoholic beverages",
+    alc1: "Champagne", alc2: "White wine", alc3: "Red wine", alc4: "Spirits", alc5: "Non-drinker",
+    formWishesLabel: "Message to the newlyweds",
+    formWishesPlaceholder: "Your warm wishes...",
+    submitBtn: "Submit RSVP",
+    rsvpClosed: "Time's Up!",
+    successTitle: "Thank you!",
+    successText: "Your RSVP has been submitted. We look forward to celebrating with you!",
+    contactsSubtitle: "Get in touch",
+    contactsTitle: "Contacts",
+    contactsText: "For any questions before the wedding and on the day,<br>please feel free to contact our organisers:",
+    c1role: "Organiser",
+    c2role: "Coordinator",
+    envTopText: "You've got mail!",
+    envCenterLabel: "Tap<br>here",
+    envAddrLabelTo: "To:",
+    envAddrLabelFrom: "From:",
+    envTo: "Our loved ones",
+    envFrom: "Daria & Sergei",
+    qrMessage: "Please open the invitation<br>on your phone",
+    greetingM: "Dear", greetingF: "Dear", greetingMF: "Dear", greetingDefault: "Dear",
+    defaultGuestName: "Dear Guest",
+    bride: "Daria", groom: "Sergei",
+    venueName: "Julia's Garden",
+    venueAddress: "Russia, Koptev Ovrag, 30\nEntrance from Volga river side",
+    introText: `Soon, the most important and joyful event of our lives will take place —<br><strong style="font-family:'Betmo',cursive;font-size:1.8em;font-weight:normal;">our wedding!</strong><br><br>We cannot imagine this day without the people dearest to us,<br>and we would love for you to share it with us!`,
+  }
+};
+
 // ===== КОНФИГУРАЦИЯ =====
 // ✏️ РЕДАКТИРУЙТЕ ЭТИ ЗНАЧЕНИЯ ПОД СВОЮ СВАДЬБУ
 
@@ -27,6 +176,7 @@ function getGuestName() {
 }
 
 function getGenderGreeting() {
+  if (currentLang === "en") return "Dear";
   const params = new URLSearchParams(window.location.search);
   const gender = params.get("g") || "";
   if (gender === "m")  return "Дорогой";
@@ -36,21 +186,23 @@ function getGenderGreeting() {
 }
 
 function applyConfig() {
+  const t = TRANSLATIONS[currentLang];
+
   // Имена пары
-  document.getElementById("hero-bride").textContent = CONFIG.bride;
-  document.getElementById("hero-groom").textContent = CONFIG.groom;
-  document.getElementById("footer-bride").textContent = CONFIG.bride;
-  document.getElementById("footer-groom").textContent = CONFIG.groom;
+  const bride = t.bride || CONFIG.bride;
+  const groom = t.groom || CONFIG.groom;
+  document.getElementById("hero-bride").textContent = bride;
+  document.getElementById("hero-groom").textContent = groom;
+  document.getElementById("footer-bride").textContent = bride;
+  document.getElementById("footer-groom").textContent = groom;
 
   // Даты
   document.getElementById("hero-date-display").textContent = CONFIG.dateDisplay;
-  document.getElementById("date-big").textContent = "июль 2026";
   document.getElementById("footer-date").textContent = CONFIG.dateDisplay;
-  document.getElementById("rsvp-deadline").textContent = CONFIG.rsvpDeadline;
 
   // Место
-  document.getElementById("venue-name").textContent = CONFIG.venueName;
-  document.getElementById("venue-address").innerHTML = CONFIG.venueAddress.replace("\n","<br>");
+  document.getElementById("venue-name").textContent = t.venueName || CONFIG.venueName;
+  document.getElementById("venue-address").innerHTML = (t.venueAddress || CONFIG.venueAddress).replace("\n","<br>");
   document.getElementById("map-link").href = CONFIG.mapUrl;
 
   // Приветствие гостя
@@ -62,7 +214,7 @@ function applyConfig() {
     document.getElementById("guest-name-display").textContent = guestName;
     document.getElementById("f-name").value = guestName;
   } else {
-    document.getElementById("guest-name-display").textContent = "Дорогой гость";
+    document.getElementById("guest-name-display").textContent = TRANSLATIONS[currentLang].defaultGuestName;
   }
 }
 
@@ -98,9 +250,11 @@ function updateCountdown() {
   document.getElementById("cd-mins").textContent  = String(mins).padStart(2, "0");
   document.getElementById("cd-secs").textContent  = String(secs).padStart(2, "0");
 
-  document.querySelector("#cd-days  + .countdown-label").textContent = plural(days,  "день",   "дня",    "дней");
-  document.querySelector("#cd-hours + .countdown-label").textContent = plural(hours, "час",    "часа",   "часов");
-  document.querySelector("#cd-mins  + .countdown-label").textContent = plural(mins,  "минута", "минуты", "минут");
+  const t = TRANSLATIONS[currentLang];
+  document.querySelector("#cd-days  + .countdown-label").textContent = plural(days,  t.cdDays1,  t.cdDaysFew,  t.cdDaysMany);
+  document.querySelector("#cd-hours + .countdown-label").textContent = plural(hours, t.cdHours1, t.cdHoursFew, t.cdHoursMany);
+  document.querySelector("#cd-mins  + .countdown-label").textContent = plural(mins,  t.cdMins1,  t.cdMinsFew,  t.cdMinsMany);
+  document.querySelector("#cd-secs  + .countdown-label").textContent = plural(secs,  t.cdSecs1,  t.cdSecsFew,  t.cdSecsMany);
 }
 
 // ===== SCROLL REVEAL =====
@@ -215,10 +369,85 @@ function heroEntrance() {
   });
 }
 
+// ===== ПЕРЕВОДЫ: ПРИМЕНЕНИЕ =====
+function applyTranslations() {
+  const t = TRANSLATIONS[currentLang];
+  document.title = t.pageTitle;
+  document.documentElement.lang = currentLang;
+
+  // data-i18n → textContent
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const v = t[el.dataset.i18n];
+    if (v !== undefined) el.textContent = v;
+  });
+
+  // data-i18n-html → innerHTML
+  document.querySelectorAll("[data-i18n-html]").forEach(el => {
+    const v = t[el.dataset.i18nHtml];
+    if (v !== undefined) el.innerHTML = v;
+  });
+
+  // data-i18n-placeholder → placeholder
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const v = t[el.dataset.i18nPlaceholder];
+    if (v !== undefined) el.placeholder = v;
+  });
+
+  const setText = (id, key) => { const el = document.getElementById(id); if (el && t[key] !== undefined) el.textContent = t[key]; };
+  const setHTML = (id, key) => { const el = document.getElementById(id); if (el && t[key] !== undefined) el.innerHTML = t[key]; };
+
+  setHTML("intro-main-text",   "introText");
+  setHTML("rsvp-intro-text",   "rsvpIntroText");
+  setHTML("t1-desc",           "t1desc");
+  setHTML("t2-desc",           "t2desc");
+  setHTML("t3-desc",           "t3desc");
+  setHTML("t4-desc",           "t4desc");
+  setHTML("t5-desc",           "t5desc");
+  setHTML("transfer-note-text","transferNote");
+  setText("dresscode-text",    "dresscodeText");
+  setHTML("contacts-text",     "contactsText");
+  setText("rsvp-closed-text",  "rsvpClosed");
+  setHTML("qr-message",        "qrMessage");
+  setText("env-top-text",      "envTopText");
+  setHTML("env-center-label",  "envCenterLabel");
+  setText("env-to",            "envTo");
+  setText("env-from",          "envFrom");
+  setText("map-link",          "mapLink");
+  setText("submit-btn",        "submitBtn");
+  setText("c1-role",           "c1role");
+  setText("c2-role",           "c2role");
+  setText("date-big",          "dateBig");
+
+  const successEl = document.getElementById("form-success");
+  if (successEl) {
+    const h3 = successEl.querySelector("h3");
+    const p  = successEl.querySelector("p");
+    if (h3) h3.textContent = t.successTitle;
+    if (p)  p.textContent  = t.successText;
+  }
+}
+
+// ===== QR CODE =====
+function initQrCode() {
+  if (typeof TelegramWebviewProxy !== "undefined" || /Telegram/i.test(navigator.userAgent)) {
+    document.body.classList.add("telegram-browser");
+  }
+  new QRCode(document.getElementById("qr-canvas"), {
+    text: window.location.href,
+    width: 160,
+    height: 160,
+    colorDark: "#3D3F24",
+    colorLight: "#F5F0E8",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+}
+
 // ===== INIT =====
 document.addEventListener("DOMContentLoaded", () => {
   document.documentElement.style.setProperty('--initial-height', window.innerHeight + 'px');
+  applyTranslations();
   applyConfig();
+  initQrCode();
   createPetals();
   heroEntrance();
   setTimeout(initReveal, 100);
@@ -261,7 +490,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     centerGroup.addEventListener('click', openEnvelope);
-    overlay.addEventListener('click', openEnvelope); // tap anywhere works too
   });
 
 // ===== CUPID ARROWS =====
