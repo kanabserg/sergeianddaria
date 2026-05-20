@@ -324,28 +324,29 @@ function initForm() {
       timestamp:   new Date().toLocaleString("ru-RU")
     };
 
-    try {
-      // ✏️ Замените URL на ваш Google Apps Script
-      await fetch(CONFIG.googleScriptUrl, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-    } catch (err) {
-      console.warn("Fetch error (возможно, всё ок с no-cors):", err);
-    }
+    fetch(CONFIG.googleScriptUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    }).catch(err => console.warn("Fetch error:", err));
 
-    // Показываем успех плавно
+    // Показываем успех через секунду, не дожидаясь ответа
+    await new Promise(r => setTimeout(r, 1000));
     form.style.transition = "opacity 0.5s ease";
     form.style.opacity = "0";
     setTimeout(() => {
+      const wrapper = document.getElementById("form-wrapper");
+      wrapper.style.height = wrapper.offsetHeight + "px";
+
       form.style.display = "none";
       const successEl = document.getElementById("form-success");
       successEl.style.display = "block";
+
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          successEl.classList.add("visible");
+          wrapper.style.height = successEl.offsetHeight + "px";
+          setTimeout(() => successEl.classList.add("visible"), 500);
         });
       });
     }, 500);

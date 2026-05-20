@@ -933,7 +933,7 @@
   .form-success {
     display: none;
     text-align: center;
-    padding: 40px;
+    padding: 48px 40px 64px;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -942,15 +942,15 @@
     opacity: 1;
     transform: translateY(0);
   }
-  .form-success-icon { font-size: 48px; margin-bottom: 16px; }
+  .form-success-photo { width: 160px; height: 160px; object-fit: cover; border-radius: 50%; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto; }
   .form-success h3 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 36px;
     font-weight: 400;
     color: var(--brown);
-    margin-bottom: 12px;
+    margin: 0 0 12px;
   }
-  .form-success p { font-size: 15px; color: var(--brown-light); }
+  .form-success p { font-size: 15px; color: var(--brown-light); margin: 0; }
 
   /* ===========================
      CONTACTS
@@ -1266,6 +1266,8 @@ body:not(.envelope-open) #arrowContainer {
 /* ===== RSVP CLOSED OVERLAY ===== */
 #form-wrapper {
   position: relative;
+  overflow: hidden;
+  transition: height 0.5s ease;
 }
 
 #form-wrapper.rsvp-closed form {
