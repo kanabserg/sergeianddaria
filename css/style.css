@@ -623,7 +623,7 @@
   }
   .timeline-icon-right .transfer-svg {
     width: 141px;
-    margin-top: 15px;
+    margin-left: -20px;
   }
 
   /* Mobile timeline */
@@ -643,7 +643,7 @@
     .timeline-icon-right img { width: 70px; }
     .timeline-icon-right .ceremony-svg { width: 56px; }
     .timeline-icon-right .dance-svg { width: 80px; }
-    .timeline-icon-right .transfer-svg { width: 80px; margin-top: 8px; }
+    .timeline-icon-right .transfer-svg { width: 80px; }
   }
 
   /* ===========================
