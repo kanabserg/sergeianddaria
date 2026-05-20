@@ -1347,9 +1347,6 @@ body.envelope-open #mute-btn:hover {
   #qr-box { display: flex; }
 }
 
-body.telegram-browser #qr-box {
-  display: flex;
-}
 
 #qr-message {
   font-family: 'Cormorant Garamond', serif;

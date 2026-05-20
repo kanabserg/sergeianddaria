@@ -430,11 +430,6 @@ function applyTranslations() {
 
 // ===== QR CODE =====
 function initQrCode() {
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const isTelegram = typeof TelegramWebviewProxy !== "undefined" || /Telegram/i.test(navigator.userAgent);
-  if (isTelegram && !isMobile) {
-    document.body.classList.add("telegram-browser");
-  }
   new QRCode(document.getElementById("qr-canvas"), {
     text: window.location.href,
     width: 160,
