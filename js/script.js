@@ -53,12 +53,15 @@ const TRANSLATIONS = {
     formWishesLabel: "Пожелания молодожёнам",
     formWishesPlaceholder: "Ваши тёплые слова...",
     submitBtn: "Отправить анкету",
+    submitting: "Отправляем...",
     rsvpClosed: "Время Вышло!",
     successTitle: "Спасибо!",
     successText: "Ваша анкета отправлена. Мы очень ждём вас на нашем празднике!",
     contactsSubtitle: "Связаться с нами",
     contactsTitle: "Контакты",
     contactsText: "По любым вопросам до свадьбы и в день торжества<br>смело обращайтесь к нашим организаторам:",
+    c1name: "Анастасия",
+    c2name: "Виктория",
     c1role: "Организатор",
     c2role: "Координатор",
     envTopText: "Вам письмо!",
@@ -124,12 +127,15 @@ const TRANSLATIONS = {
     formWishesLabel: "Message to the newlyweds",
     formWishesPlaceholder: "Your warm wishes...",
     submitBtn: "Submit RSVP",
+    submitting: "Sending...",
     rsvpClosed: "Time's Up!",
     successTitle: "Thank you!",
     successText: "Your RSVP has been submitted. We look forward to celebrating with you!",
     contactsSubtitle: "Get in touch",
     contactsTitle: "Contacts",
     contactsText: "For any questions before the wedding and on the day,<br>please feel free to contact our organisers:",
+    c1name: "Anastasia",
+    c2name: "Viktoria",
     c1role: "Organiser",
     c2role: "Coordinator",
     envTopText: "You've got mail!",
@@ -305,7 +311,7 @@ function initForm() {
     e.preventDefault();
     const btn = document.getElementById("submit-btn");
     btn.disabled = true;
-    btn.textContent = "Отправляем...";
+    btn.textContent = TRANSLATIONS[currentLang].submitting;
 
     // Сбор данных
     const attendance = document.querySelector('input[name="attendance"]:checked')?.value || "";
@@ -415,6 +421,8 @@ function applyTranslations() {
   setText("env-from",          "envFrom");
   setText("map-link",          "mapLink");
   setText("submit-btn",        "submitBtn");
+  setText("c1-name",           "c1name");
+  setText("c2-name",           "c2name");
   setText("c1-role",           "c1role");
   setText("c2-role",           "c2role");
   setText("date-big",          "dateBig");
