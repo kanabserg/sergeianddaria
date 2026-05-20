@@ -207,6 +207,7 @@ function heroEntrance() {
 
 // ===== INIT =====
 document.addEventListener("DOMContentLoaded", () => {
+  document.documentElement.style.setProperty('--initial-height', window.innerHeight + 'px');
   applyConfig();
   createPetals();
   heroEntrance();
@@ -285,15 +286,18 @@ function scheduleArrows() {
   arrowTimer = null;
   if (!heroInView) return;
   createCupidArrow();
-  arrowTimer = setTimeout(scheduleArrows, 3000);
+  arrowTimer = setTimeout(scheduleArrows, 2000 + Math.random() * 1000);
 }
 
 function initArrowObserver() {
   const hero = document.getElementById('hero');
   if (!hero) return;
+  let prevVisible = true;
   const observer = new IntersectionObserver((entries) => {
-    heroInView = entries[0].isIntersecting;
-    if (heroInView && !arrowTimer) scheduleArrows();
+    const visible = entries[0].isIntersecting;
+    if (visible && !prevVisible && !arrowTimer) scheduleArrows();
+    heroInView = visible;
+    prevVisible = visible;
   }, { threshold: 0 });
   observer.observe(hero);
 }
