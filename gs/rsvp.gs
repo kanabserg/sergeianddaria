@@ -7,19 +7,16 @@ function doPost(e) {
     const ss   = SpreadsheetApp.getActiveSpreadsheet();
     const data = JSON.parse(e.postData.contents);
 
-    // Лог
     const logSheet = ss.getSheetByName("Лог") || ss.insertSheet("Лог");
     logSheet.appendRow([
       new Date().toLocaleString("ru-RU"),
       JSON.stringify(data)
     ]);
 
-    // 1. Проверка ключа
     if (data.key !== KEY) {
       return response("forbidden_key");
     }
 
-    // 2. Проверка по белому списку
     const guestSheet = ss.getSheetByName(SHEET_GUESTS);
     if (guestSheet) {
       const rows      = guestSheet.getDataRange().getValues();
@@ -27,7 +24,7 @@ function doPost(e) {
       const guestG    = (data.g         || "").trim().toLowerCase();
 
       const found = rows.slice(1).some(row => {
-        const url     = String(row[3] || "").trim();
+        const url = String(row[3] || "").trim();
         if (!url) return false;
         const rowName = String(row[0] || "").trim().toLowerCase();
         const rowG    = String(row[1] || "").trim().toLowerCase();
@@ -37,7 +34,6 @@ function doPost(e) {
       if (!found) return response("forbidden_guest");
     }
 
-    // 3. Запись в Анкеты
     const mainSheet = ss.getSheetByName(SHEET_ANKETY) || ss.getSheets()[0];
     mainSheet.appendRow([
       data.timestamp  || new Date().toLocaleString("ru-RU"),
@@ -50,10 +46,7 @@ function doPost(e) {
       data.g          || "",
     ]);
 
-    // 4. Обновить статус в листе Гости
     updateGuestStatus(guestSheet, data);
-
-    // 5. Обновить диаграмму
     buildPieChart();
 
     return response("ok");
@@ -70,8 +63,8 @@ function updateGuestStatus(guestSheet, data) {
   const guestG    = (data.g         || "").trim().toLowerCase();
 
   for (let i = 1; i < rows.length; i++) {
-    const url = String(rows[i][3] || "").trim(); // колонка D — URL
-    if (!url) continue;                          // пропускаем строки без URL
+    const url = String(rows[i][3] || "").trim();
+    if (!url) continue;
 
     const rowName = String(rows[i][0] || "").trim().toLowerCase();
     const rowG    = String(rows[i][1] || "").trim().toLowerCase();
@@ -99,54 +92,67 @@ function buildPieChart() {
 
   const rows = guestSheet.getDataRange().getValues().slice(1);
   let yes = 0, no = 0, pending = 0;
+  let yesCount = 0, noCount = 0, pendingCount = 0;
 
   rows.forEach(row => {
-    const url = String(row[3] || "").trim(); // колонка D — URL
-    if (!url) return;                        // пропускаем строки без URL
+    const url = String(row[3] || "").trim();
+    if (!url) return;
 
     const status = String(row[4] || "").trim();
-    if (status === "Придёт")         yes++;
-    else if (status === "Не придёт") no++;
-    else                             pending++;
+    // Колонка F (индекс 5) — количество человек, заполняется вручную
+    const people = parseInt(row[5]) || 1;
+
+    if (status === "Придёт") {
+      yes++;
+      yesCount += people;
+    } else if (status === "Не придёт") {
+      no++;
+      noCount += people;
+    } else {
+      pending++;
+      pendingCount += people;
+    }
   });
 
-  const total = yes + no + pending;
+  const total      = yes + no + pending;
+  const totalCount = yesCount + noCount + pendingCount;
 
-  // Удаляем старые чарты с листа Гости
-  const charts = guestSheet.getCharts();
-  charts.forEach(chart => guestSheet.removeChart(chart));
+  // Удаляем старые чарты
+  guestSheet.getCharts().forEach(chart => guestSheet.removeChart(chart));
 
-  // Данные в G4:H8
-  guestSheet.getRange("G4:H8").setValues([
-    ["Статус",       "Количество"],
-    ["Придут",       yes],
-    ["Не придут",    no],
-    ["Не ответили",  pending],
-    ["Всего гостей", total],
+  // H=Статус, I=Анкет, J=Человек
+  guestSheet.getRange("H4:J8").setValues([
+    ["Статус",       "Анкет",   "Человек"],
+    ["Придут",       yes,       yesCount],
+    ["Не придут",    no,        noCount],
+    ["Не ответили",  pending,   pendingCount],
+    ["Всего",        total,     totalCount],
   ]);
 
-  // Цвета ячеек
-  guestSheet.getRange("H5").setBackground("#CCFFCC");
-  guestSheet.getRange("H6").setBackground("#FFCCCC");
-  guestSheet.getRange("H7").setBackground("#E0E0E0");
-  guestSheet.getRange("H8").setBackground("#FFFFFF");
+  // Цвета
+  guestSheet.getRange("I5").setBackground("#CCFFCC");
+  guestSheet.getRange("J5").setBackground("#CCFFCC");
+  guestSheet.getRange("I6").setBackground("#FFCCCC");
+  guestSheet.getRange("J6").setBackground("#FFCCCC");
+  guestSheet.getRange("I7").setBackground("#E0E0E0");
+  guestSheet.getRange("J7").setBackground("#E0E0E0");
+  guestSheet.getRange("I8").setBackground("#FFFFFF");
+  guestSheet.getRange("J8").setBackground("#FFFFFF");
 
-  // Жирный итог
-  guestSheet.getRange("G8:H8").setFontWeight("bold");
-
-  // Заголовки жирные и по центру
-  guestSheet.getRange("G4:H4")
+  // Жирный итог и заголовки
+  guestSheet.getRange("H8:J8").setFontWeight("bold");
+  guestSheet.getRange("H4:J4")
     .setFontWeight("bold")
     .setHorizontalAlignment("center");
 
   SpreadsheetApp.flush();
 
-  // Чарт только по G4:H7 — без строки "Всего гостей"
-  const dataRange = guestSheet.getRange("G4:H7");
+  // График: метки из H4:H7, значения людей из J4:J7 (колонка F листа Гости)
   const chartBuilder = guestSheet.newChart()
     .setChartType(Charts.ChartType.PIE)
-    .addRange(dataRange)
-    .setPosition(9, 7, 0, 0)
+    .addRange(guestSheet.getRange("H4:H7"))
+    .addRange(guestSheet.getRange("J4:J7"))
+    .setPosition(9, 8, 0, 0)
     .setOption("title",           "Подтверждение участия")
     .setOption("width",           380)
     .setOption("height",          300)
@@ -158,7 +164,6 @@ function buildPieChart() {
   guestSheet.insertChart(chartBuilder.build());
   SpreadsheetApp.flush();
 
-  // Удаляем лист Статистика если остался от прошлой версии
   const statSheet = ss.getSheetByName("Статистика");
   if (statSheet) ss.deleteSheet(statSheet);
 }
